@@ -2,96 +2,155 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
-# [Project Name] 🎯
+# PASU🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Pasu_Labs
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: MADHAV K ANIL - MA COLLEGE OF ENGINEERING, KOTHAMANGALAM
+- Member 2: KALYANI B - MA COLLEGE OF ENGINEERING, KOTHAMANGALAM
 
 ### Project Description
-[2-3 lines about what your project does]
+'PASU' is a mobile, character-driven dustbin on wheels that hates doing its job. Controlled manually, it reacts dramatically whenever someone tries to throw waste inside. With iconic Malayalam dialogue and runaway antics, it turns a boring bin into the sassiest gadget in the room.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+In a world where dustbins silently suffer in dignity, no one cares about their feelings as they’re forced to swallow our garbage every day.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+Introducing Moody Bin —a runaway, wheeled dustbin with a dramatic personality. Pour waste in, and instead of accepting it quietly, he speaks up for himself, and might even roll away in protest.
 
 ## Technical Details
+
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- Sensecarft AI 
+- ARDUINO IDE
+- FUSION 360
+
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- ESP 32
+- GROOVE VISION AI V2  
+- FN-M16P( MP3 audio module)
+- 3W Speaker
+- Li ion Batttery
+- Dust bin
+- Foam board
+- Jumper wires
 
 ### Implementation
 For Software:
+Wi-Fi Manual Control (Mobile App):
+An app connects to the ESP32 over Wi-Fi.
+App has directional buttons (Forward, Backward, Left, Right, Stop) to control the bin’s motor driver via ESP32 GPIO pins.
+Commands are sent as HTTP requests or via WebSocket for smoother control.
+
+Waste Detection Trigger (Groove Vision AI Camera):
+The Groove Vision AI V2 Camera is trained (custom ML model) to recognize “waste items” using a small dataset.
+When the camera detects waste entering the bin, it sends a digital signal to the ESP32 
+ESP32 processes the detection event and triggers the “reaction” sequence.
+
+Audio Playback (ESP32 + FN-M16P or DFPlayer Mini):
+ESP32 sends serial commands to the audio module to play a Malayalam meme dialogue.
+Audio files are stored on the module’s SD card.
+A simple random number generator in ESP32 code picks which file to play for each detection.
+
 # Installation
-[commands]
+Hardware Setup
+
+Wi-Fi Manual Control
+ESP32 programmed to receive commands from a mobile app over Wi-Fi.
+App sends movement commands (Forward, Backward, Left, Right, Stop) to control the motor driver connected to the wheels.
+
+Waste Detection (Groove Vision AI Camera):
+Groove Vision AI V2 Camera trained using a custom ML model to detect waste items.
+When waste is detected, the camera sends a signal to the ESP32.
+
+Reaction Sequence:
+On detection, ESP32 triggers the audio module (FN-M16P / DFPlayer Mini) to play a random Malayalam meme dialogue stored on its SD card.
+
+System Flow:
+User controls movement via mobile app → ESP32 drives wheels.
+Waste enters bin → Camera detects → ESP32 plays dialogue through speakers.
+
 
 # Run
-[commands]
+Run
+Power On:
+Switch on the ESP32-based control system and the Groove Vision AI Camera.
+Ensure the audio module SD card is inserted with the dialogue files.
+
+Connect:
+Connect your mobile device to the same Wi-Fi networK as the bin.
+
+Control Movement:
+Use the app’s directional buttons to move the bin (Forward, Backward, Left, Right, Stop).
+
+Trigger Reaction:
+Drop waste into the bin.
+Groove Vision AI Camera detects waste → sends signal to ESP32 → plays a random Malayalam meme dialogue through the speaker.
 
 ### Project Documentation
-For Software:
+
+Software Documentation – Moody Bin
+Overview
+The software for Moody Bin enables Wi-Fi-based manual control and AI-powered waste detection. A Flutter mobile app communicates with the ESP32 over Wi-Fi to move the bin. The Groove Vision AI Camera, trained with a custom ML model, detects waste items and signals the ESP32 to trigger audio playback of random Malayalam meme dialogues via an audio module.
+
+Implementation:
+Wi-Fi Manual Control (Flutter App → ESP32)
+The Flutter app sends directional commands (Forward, Backward, Left, Right, Stop) over Wi-Fi.
+ESP32 processes these commands and controls the motor driver connected to the wheels.
+
+Waste Detection (Groove Vision AI Camera):
+Trained using SenseCraft ML tool with a small dataset of waste images
+On detection, the camera sends a signal to the ESP32 via UART/I2C.
+Audio Reaction (ESP32 + FN-M16P / DFPlayer Mini)
+ESP32 triggers the audio module to play one malayalam dialogue,
+
+Tools & Libraries
+Software: Arduino IDE, Flutter SDK, SenseCraft ML Tool.
+Libraries: WiFi.h, ESPAsyncWebServer, SoftwareSerial.
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+<img width="1881" height="886" alt="image" src="https://github.com/user-attachments/assets/46628790-177b-4a54-86cc-e3c769308ff9" />
+SENSECRAFT AI ML TRAINING
+![WhatsApp Image 2025-08-09 at 05 39 42_8c2937d0](https://github.com/user-attachments/assets/65c46ba7-8693-4f97-beae-9cd7b1164114)
+GROVE VISION AI VE CAMERA IMPLEMENTATION
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+[ESPP8266 App]  <--Wi-Fi-->  [ESP32]
+                                 |\
+                                 | \__ Motor Driver --> Left Motor (Wheel)
+                                 | /                --> Right Motor (Wheel)
+                                 |/
+                 [Groove Vision AI Camera]  ->(serial/signal)-> ESP32
+                                 |
+                                 v
+                           (detects waste)
 
-For Hardware:
+                        [ESP32] --serial--> [Audio Module (DFPlayer / FN-M16P)] -> Speaker
+
+Power sources: Battery (motor supply) ---- Motor Driver VIN
+               5V regulator / Battery 5V -> ESP32 VIN (or 5V regulator) + Audio Module 5V
+               All GNDs tied together
+
 
 # Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
+![WhatsApp Image 2025-08-09 at 05 09 47_0bfd4c33](https://github.com/user-attachments/assets/922a064e-7cfa-4268-b681-2369df166ef4)
 
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
 
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
+# Build Photos and
+# PROJECT DEMO Video
+https://drive.google.com/drive/folders/1wuGUb5AkMFYW9BUc2J1pq5HgqjszH769?usp=sharing
+(please open the drive)
 
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
-
-### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
-
-# Additional Demos
-[Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+MADHAV K ANIL: HARDWARE, ML TRAINING, DESIGN
+KALYANI: SOFTWARE, DESIGN
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
