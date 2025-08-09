@@ -1,6 +1,5 @@
 
-<img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/8a304851-0e85-4ab6-901d-281878e6d2a8
-" />
+<img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/8a304851-0e85-4ab6-901d-281878e6d2a8" />
 
 
 # PASU🎯
